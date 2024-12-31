@@ -54,5 +54,4 @@ Each folder contains:
 To use this repository locally:
 ```bash
 git clone https://github.com/Anish-2005/Data-Structures-and-Algorithms.git
-cd dsa-repo
 
