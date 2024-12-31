@@ -53,6 +53,6 @@ Each folder contains:
 ### Clone the Repository
 To use this repository locally:
 ```bash
-git clone https://github.com/your-username/dsa-repo.git
+git clone https://github.com/Anish-2005/Data-Structures-and-Algorithms.git
 cd dsa-repo
 
