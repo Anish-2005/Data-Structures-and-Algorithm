@@ -1,0 +1,2 @@
+Linear Search is a straightforward algorithm that sequentially checks each element of an array until the target element is found or the end of the array is reached. It works on unsorted as well as sorted arrays.
+
