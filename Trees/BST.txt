@@ -8,7 +8,7 @@ Summary Table: Time and Space Complexity
 
 
 Operation	                      Best Case	                   Average Case	              Worst Case
-Search	                          O(log n)	O(log n)	O(n)
-Insertion	                      O(log n)	O(log n)	O(n)
-Deletion	                      O(log n)	O(log n)	O(n)
-Space Complexity	              O(h)	O(h)	O(n)
+Search	                          O(log n)	                   O(log n)	                  O(n)
+Insertion	                      O(log n)	                   O(log n)	                  O(n)
+Deletion	                      O(log n)                     O(log n)	                  O(n)
+Space Complexity	              O(h)                         O(h)	                      O(n)
