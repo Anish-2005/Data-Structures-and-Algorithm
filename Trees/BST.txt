@@ -1,0 +1,5 @@
+Properties:
+
+Binary Tree Structure: Each node has at most two children (left and right).
+Order Property: For any node N, values in the left subtree of N are less than N.val, and values in the right subtree are greater than N.val.
+Inorder Traversal: Produces a sorted sequence of values.
