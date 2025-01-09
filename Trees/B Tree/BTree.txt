@@ -1,0 +1,1 @@
+A B-Tree is a self-balancing search tree designed for systems that read and write large blocks of data. It generalizes the concept of a binary search tree by allowing nodes to have more than two children. B-Trees are widely used in databases and file systems to efficiently store and retrieve large amounts of data.
