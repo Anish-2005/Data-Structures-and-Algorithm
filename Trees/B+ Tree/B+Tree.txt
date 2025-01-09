@@ -19,3 +19,14 @@ Key Properties of B+ Tree:
    - O(log n) for locating the leaf and modifying the structure.
 8. Traversal Time Complexity:
    - O(n) for in-order traversal.
+
+
+
+---------------------------------------------------------------
+| Operation          | Time Complexity   | Space Complexity   |
+---------------------------------------------------------------
+| Search             | O(log n)          | O(n)               |
+| Insertion          | O(log n)          | O(n)               |
+| Deletion           | O(log n)          | O(n)               |
+| Traversal          | O(n)              | O(n)               |
+---------------------------------------------------------------
