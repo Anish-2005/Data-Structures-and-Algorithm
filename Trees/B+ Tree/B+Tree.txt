@@ -20,6 +20,26 @@ Key Properties of B+ Tree:
 8. Traversal Time Complexity:
    - O(n) for in-order traversal.
 
+---------------------------------------------------------------------
+| Feature               | B-Tree              | B+ Tree             |
+---------------------------------------------------------------------
+| Key Storage           | Keys stored in both | Keys stored only in |
+|                       | internal and leaf   | leaf nodes.         |
+|                       | nodes.              |                     |
+---------------------------------------------------------------------
+| Internal Node Role    | Stores both keys    | Stores only keys for|
+|                       | and data.           | routing purposes.   |
+---------------------------------------------------------------------
+| Sequential Access     | Slower, as no       | Faster, due to      |
+|                       | linked list exists. | linked leaf nodes.  |
+---------------------------------------------------------------------
+| Range Queries         | Less efficient.     | Highly efficient    |
+|                       |                     | (via linked leaves).|
+---------------------------------------------------------------------
+| Tree Height           | Slightly taller due | Slightly shorter as |
+|                       | to key distribution.| all keys are in     |
+|                       |                     | leaves.             |
+---------------------------------------------------------------------
 
 
 ---------------------------------------------------------------
