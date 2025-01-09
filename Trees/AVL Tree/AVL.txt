@@ -1,3 +1,11 @@
+An AVL Tree is a self-balancing binary search tree where the difference between the heights of the left and right subtrees (balance factor) of any node is at most 1. 
+
+        30
+       /  \
+     20    40
+    /  \      \
+   10   25     50
+
 ---------------------------------------------------------------
 | Operation          | Time Complexity   | Space Complexity   |
 ---------------------------------------------------------------
