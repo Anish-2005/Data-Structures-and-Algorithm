@@ -19,3 +19,15 @@ Properties of a Full Binary Tree:
      h = log2(n + 1) - 1
 5. Balanced Structure:
    - A full binary tree is not necessarily balanced unless additional constraints are applied (e.g., it is also complete or perfect).
+
+
+Example of a Full Binary Tree:
+        1
+      /   \
+     2     3
+    / \   / \
+   4   5 6   7
+
+- Root node: 1
+- Internal nodes: 1, 2, 3
+- Leaf nodes: 4, 5, 6, 7
