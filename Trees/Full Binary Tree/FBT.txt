@@ -32,6 +32,8 @@ Example of a Full Binary Tree:
 - Internal nodes: 1, 2, 3
 - Leaf nodes: 4, 5, 6, 7
 
+
+
 Key Differences Between Full, Complete, and Perfect Binary Trees:
 -----------------------------------------------------------------
 | Type                  | Description                                                   |
@@ -44,3 +46,16 @@ Applications of Full Binary Trees:
 - Used in binary heaps (when combined with the complete property).
 - Foundation for decision trees in algorithms.
 - Efficient data storage in prefix codes like Huffman coding.
+
+
+Time and Space Complexity Table for Full Binary Tree:
+
+----------------------------------------------------------------
+| Operation           | Time Complexity | Space Complexity      |
+----------------------------------------------------------------
+| Search              | O(log n)        | O(n) (due to tree nodes) |
+| Insertion           | O(log n)        | O(n)                   |
+| Deletion            | O(log n)        | O(n)                   |
+| Traversal (In-order, Pre-order, Post-order) | O(n) | O(n) (for recursion stack) |
+| Height Calculation  | O(log n)        | O(1)                   |
+----------------------------------------------------------------
