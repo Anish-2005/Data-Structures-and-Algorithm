@@ -1,0 +1,1 @@
+A Red-Black Tree is a type of self-balancing binary search tree. It ensures that the height of the tree is approximately 𝑂(log𝑛), which keeps operations like search, insertion, and deletion efficient. Each node in a Red-Black Tree has an extra property: its color, which is either red or black.
