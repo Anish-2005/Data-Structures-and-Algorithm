@@ -22,3 +22,13 @@ Key Properties of a Red-Black Tree:
 5. Balance Property:
    - The longest path from the root to a leaf is at most twice as long as the shortest path.
 
+
+Operations and Their Complexities:
+-----------------------------------------------------------------------------------
+| Operation      | Time Complexity | Explanation                                  |
+-----------------------------------------------------------------------------------
+| Search         | O(log n)        | Height is logarithmic due to balancing.      |
+| Insertion      | O(log n)        | May require rotations or color adjustments.  |
+| Deletion       | O(log n)        | Involves rebalancing if necessary.           |
+| Traversal      | O(n)            | Standard in-order traversal.                 |
+-----------------------------------------------------------------------------------
