@@ -3,3 +3,19 @@ A Full Binary Tree (also known as a Proper or Strict Binary Tree) is a type of b
 1. Zero children (leaf nodes), or
 2. Exactly two children (internal nodes).
 No node in a full binary tree has only one child.
+
+Properties of a Full Binary Tree:
+1. Number of Nodes:
+   - If the height of the tree is h (where the root is at height 0), the total number of nodes n in a full binary tree is:
+     n = 2^(h+1) - 1
+2. Number of Leaf Nodes:
+   - The number of leaf nodes L is:
+     L = (n + 1) / 2
+3. Number of Internal Nodes:
+   - The number of internal nodes I (nodes with two children) is:
+     I = L - 1
+4. Height:
+   - The height h of a full binary tree with n nodes is:
+     h = log2(n + 1) - 1
+5. Balanced Structure:
+   - A full binary tree is not necessarily balanced unless additional constraints are applied (e.g., it is also complete or perfect).
