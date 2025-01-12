@@ -1,0 +1,5 @@
+Full Binary Tree Definition:
+A Full Binary Tree (also known as a Proper or Strict Binary Tree) is a type of binary tree in which every node has either:
+1. Zero children (leaf nodes), or
+2. Exactly two children (internal nodes).
+No node in a full binary tree has only one child.
