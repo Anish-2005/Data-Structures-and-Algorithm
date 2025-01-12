@@ -21,3 +21,4 @@ Key Properties of a Red-Black Tree:
 
 5. Balance Property:
    - The longest path from the root to a leaf is at most twice as long as the shortest path.
+
