@@ -31,3 +31,22 @@ Explanation:
    - Creates a graph with 6 vertices.
    - Adds edges to form a sample graph.
    - Starts DFS from vertex 0.
+
+
+
+
+   Time and Space Complexity Summary Table for DFS:
+
+--------------------------------------------------------------
+| Operation              | Time Complexity | Space Complexity |
+--------------------------------------------------------------
+| Graph Traversal        | O(V + E)        | O(V)             |
+| Recursive Stack Space  | -               | O(V)             |
+| Iterative DFS (with stack) | O(V + E)    | O(V)             |
+--------------------------------------------------------------
+
+Explanation:
+- V: Number of vertices in the graph.
+- E: Number of edges in the graph.
+- Time complexity is O(V + E) because every vertex and edge is visited once.
+- Space complexity is O(V) due to the storage of the visited array and recursion stack (or explicit stack in iterative DFS).
