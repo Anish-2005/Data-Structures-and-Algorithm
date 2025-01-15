@@ -10,8 +10,24 @@ Detecting cycles
 Solving mazes and puzzles
 Finding connected components in a graph
 
+
 Time and Space Complexity:
 - Time Complexity: O(V + E)
   - V: Number of vertices
   - E: Number of edges
 - Space Complexity: O(V) (due to recursion stack or explicit stack)
+
+
+Explanation:
+1. Graph Representation:
+   - The graph is represented using an adjacency list.
+   - Each vertex has a list of its adjacent vertices.
+
+2. DFS Function:
+   - Marks the current vertex as visited.
+   - Recursively visits all unvisited adjacent vertices.
+
+3. Main Function:
+   - Creates a graph with 6 vertices.
+   - Adds edges to form a sample graph.
+   - Starts DFS from vertex 0.
