@@ -9,3 +9,9 @@ Topological sorting
 Detecting cycles
 Solving mazes and puzzles
 Finding connected components in a graph
+
+Time and Space Complexity:
+- Time Complexity: O(V + E)
+  - V: Number of vertices
+  - E: Number of edges
+- Space Complexity: O(V) (due to recursion stack or explicit stack)
