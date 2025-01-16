@@ -1,0 +1,1 @@
+BFS is a graph traversal algorithm that explores all the vertices at the current depth level before moving on to vertices at the next depth level. It uses a **queue** data structure to keep track of the vertices to visit.
