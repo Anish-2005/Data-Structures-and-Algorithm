@@ -1,5 +1,6 @@
 BFS is a graph traversal algorithm that explores all the vertices at the current depth level before moving on to vertices at the next depth level. It uses a **queue** data structure to keep track of the vertices to visit.
 
+
 Key Characteristics of BFS:
 1. Visits all vertices and edges layer by layer.
 2. Uses a queue for iterative implementation.
@@ -8,3 +9,11 @@ Key Characteristics of BFS:
    - Shortest path algorithms
    - Level-order traversal of trees
    - Solving maze problems
+
+
+Time and Space Complexity:
+- Time Complexity: O(V + E)
+  - V: Number of vertices
+  - E: Number of edges
+- Space Complexity: O(V)
+  - Space is required for the queue and visited array.
