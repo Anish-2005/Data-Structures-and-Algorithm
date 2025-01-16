@@ -17,3 +17,17 @@ Time and Space Complexity:
   - E: Number of edges
 - Space Complexity: O(V)
   - Space is required for the queue and visited array.
+
+Explanation:
+1. Graph Representation:
+   - The graph is represented using an adjacency list.
+   - Each vertex has a list of its adjacent vertices.
+
+2. BFS Function:
+   - Uses a queue to keep track of vertices to visit.
+   - Marks vertices as visited and processes them in level order.
+
+3. Main Function:
+   - Creates a graph with 6 vertices.
+   - Adds edges to form a sample graph.
+   - Starts BFS from vertex 0.
