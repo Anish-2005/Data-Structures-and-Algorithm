@@ -26,3 +26,19 @@ Operations and Their Complexities:
 | Delete from End        | O(1)           | O(1)             |
 | Delete by Value        | O(n)           | O(1)             |
 -----------------------------------------------------
+
+
+Key Advantages:
+1. Allows efficient traversal in both directions.
+2. Deletion of a node is easier compared to a singly linked list, as pointers to both previous and next nodes are maintained.
+3. Supports insertion and deletion at both ends in O(1) time.
+
+Key Disadvantages:
+1. Requires extra memory for storing the previous pointer.
+2. Slightly more complex to implement compared to singly linked lists.
+
+Applications:
+1. Browser navigation systems (forward and backward buttons).
+2. Undo and redo functionality in text editors.
+3. Implementation of Deques (Double-Ended Queues).
+4. Managing playlists or data with bidirectional movement.
