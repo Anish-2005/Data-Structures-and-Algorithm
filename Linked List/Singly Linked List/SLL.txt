@@ -26,3 +26,20 @@ Operations and Their Complexities:
 | Delete from End       | O(n)           | O(1)             |
 | Delete by Value       | O(n)           | O(1)             |
 -------------------------------------------------
+
+
+Key Advantages:
+1. Efficient insertion and deletion compared to arrays (no need for shifting elements).
+2. Dynamic resizing allows for better memory utilization.
+3. Suitable for applications where frequent insertions and deletions occur.
+
+Key Disadvantages:
+1. Cannot perform random access; traversal is required to access elements.
+2. Extra memory is required for pointers.
+3. Operations like searching are slower compared to arrays.
+
+Applications:
+1. Dynamic memory allocation systems.
+2. Implementing stacks and queues.
+3. Polynomial arithmetic (to store terms of polynomials).
+4. Managing symbolic expressions in compilers and interpreters.
