@@ -4,3 +4,9 @@ Structure of a Node:
 1. Data: The value stored in the node.
 2. Previous Pointer: Points to the previous node in the list.
 3. Next Pointer: Points to the next node in the list.
+
+
+Key Characteristics:
+1. Allows bidirectional traversal.
+2. Each node has pointers for both previous and next nodes.
+3. The list starts with a "head" pointer and ends with a "tail" pointer, where the `prev` pointer of the head and the `next` pointer of the tail are NULL.
