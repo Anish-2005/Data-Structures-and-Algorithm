@@ -10,3 +10,19 @@ Key Characteristics:
 2. The last node points to NULL, indicating the end of the list.
 3. Each node is dynamically allocated, allowing for efficient memory use.
 4. It supports dynamic resizing, unlike arrays.
+
+
+Operations and Their Complexities:
+
+-------------------------------------------------
+| Operation             | Time Complexity | Space Complexity |
+-------------------------------------------------
+| Traversal             | O(n)           | O(1)             |
+| Search (unsorted)     | O(n)           | O(1)             |
+| Insert at Beginning   | O(1)           | O(1)             |
+| Insert at End         | O(n)           | O(1)             |
+| Insert at a Position  | O(n)           | O(1)             |
+| Delete from Beginning | O(1)           | O(1)             |
+| Delete from End       | O(n)           | O(1)             |
+| Delete by Value       | O(n)           | O(1)             |
+-------------------------------------------------
