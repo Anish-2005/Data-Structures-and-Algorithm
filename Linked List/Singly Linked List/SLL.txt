@@ -3,3 +3,10 @@ Singly Linked List:
 A singly linked list is a linear data structure where each element (node) points to the next node in the sequence. Each node contains two components:
 1. Data: The value stored in the node.
 2. Pointer: A reference to the next node in the list.
+
+
+Key Characteristics:
+1. The list starts with a "head" pointer pointing to the first node.
+2. The last node points to NULL, indicating the end of the list.
+3. Each node is dynamically allocated, allowing for efficient memory use.
+4. It supports dynamic resizing, unlike arrays.
