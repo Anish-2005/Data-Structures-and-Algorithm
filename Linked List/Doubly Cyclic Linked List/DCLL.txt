@@ -25,3 +25,18 @@ A **doubly cyclic linked list** is a type of linked list where:
 1. Round-robin schedulers.
 2. Circular buffers where both forward and reverse traversal are needed.
 3. Music playlists with bidirectional navigation.
+
+### Time and Space Complexity Table:
+
+-----------------------------------------------------
+| Operation              | Time Complexity | Space Complexity |
+-----------------------------------------------------
+| Traversal              | O(n)           | O(1)             |
+| Search (unsorted)      | O(n)           | O(1)             |
+| Insert at Beginning    | O(1)           | O(1)             |
+| Insert at End          | O(1)           | O(1)             |
+| Insert at Position     | O(n)           | O(1)             |
+| Delete from Beginning  | O(1)           | O(1)             |
+| Delete from End        | O(1)           | O(1)             |
+| Delete by Value        | O(n)           | O(1)             |
+-----------------------------------------------------
