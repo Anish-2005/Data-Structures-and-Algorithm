@@ -25,3 +25,19 @@ In a doubly cyclic linked list:
 1. Implementing circular buffers.
 2. Managing tasks in round-robin schedulers.
 3. Multiplayer gaming for managing turn-based actions.
+
+### Time and Space Complexity Table:
+
+-----------------------------------------------------
+| Operation              | Singly Cyclic  | Doubly Cyclic  |
+-----------------------------------------------------
+| Traversal              | O(n)          | O(n)           |
+| Search (unsorted)      | O(n)          | O(n)           |
+| Insert at Beginning    | O(1)          | O(1)           |
+| Insert at End          | O(1)          | O(1)           |
+| Insert at Position     | O(n)          | O(n)           |
+| Delete from Beginning  | O(1)          | O(1)           |
+| Delete from End        | O(n)          | O(1)           |
+| Delete by Value        | O(n)          | O(n)           |
+| Space Complexity       | O(1)          | O(1)           |
+-----------------------------------------------------
