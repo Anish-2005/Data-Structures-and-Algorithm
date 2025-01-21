@@ -1,0 +1,6 @@
+A **doubly cyclic linked list** is a type of linked list where:
+1. Each node has two pointers:
+   - `next`: Points to the next node.
+   - `prev`: Points to the previous node.
+2. The `next` pointer of the last node points back to the first node (head).
+3. The `prev` pointer of the first node (head) points back to the last node (tail), forming a circular structure in both directions.
