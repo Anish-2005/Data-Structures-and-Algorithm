@@ -1,1 +1,9 @@
 A **cyclic linked list** is a variation of a linked list where the last node in the list points back to one of the previous nodes, forming a loop. This can be implemented as a singly or doubly linked list. 
+
+In a singly cyclic linked list:
+- Each node has a single pointer (`next`) that points to the next node.
+- The `next` pointer of the last node points back to the first node (head).
+
+In a doubly cyclic linked list:
+- Each node has two pointers: `next` (points to the next node) and `prev` (points to the previous node).
+- The `prev` pointer of the head points to the last node, and the `next` pointer of the last node points to the head.
