@@ -26,3 +26,18 @@ A **stack** is a linear data structure that operates on the **LIFO (Last In, Fir
 Each node contains:
 1. **data**: The value stored in the node.
 2. **next**: A pointer to the next node in the stack.
+
+Time and Space Complexity Table for Stack Using Linked List:
+
+---------------------------------
+| Operation   | Time Complexity | Space Complexity |
+---------------------------------
+| Push        | O(1)            | O(1)             |
+| Pop         | O(1)            | O(1)             |
+| Peek        | O(1)            | O(1)             |
+| IsEmpty     | O(1)            | O(1)             |
+---------------------------------
+
+**Notes:**
+1. All operations (Push, Pop, Peek, and IsEmpty) take constant time because they involve updating or reading a single node's pointer.
+2. Space complexity for each operation is O(1) as no additional memory is required apart from pointer adjustments.
