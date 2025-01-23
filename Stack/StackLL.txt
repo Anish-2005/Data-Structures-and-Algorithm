@@ -4,3 +4,9 @@ A **stack** is a linear data structure that operates on the **LIFO (Last In, Fir
 1. Operates on LIFO principle.
 2. No fixed size, as it dynamically allocates memory.
 3. Can grow and shrink in size as elements are pushed and popped.
+
+### Stack Operations:
+1. **Push**: Add an element to the top of the stack.
+2. **Pop**: Remove and return the top element of the stack.
+3. **Peek (or Top)**: Retrieve the value of the top element without removing it.
+4. **IsEmpty**: Check if the stack is empty.
