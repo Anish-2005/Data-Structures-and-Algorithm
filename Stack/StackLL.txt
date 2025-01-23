@@ -1,1 +1,6 @@
 A **stack** is a linear data structure that operates on the **LIFO (Last In, First Out)** principle, where the last element inserted is the first one to be removed. Implementing a stack using a linked list allows for dynamic memory usage and eliminates the need for a fixed size.
+
+### Key Characteristics:
+1. Operates on LIFO principle.
+2. No fixed size, as it dynamically allocates memory.
+3. Can grow and shrink in size as elements are pushed and popped.
