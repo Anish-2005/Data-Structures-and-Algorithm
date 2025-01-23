@@ -20,3 +20,21 @@ A **stack** is a linear data structure that follows the **LIFO (Last In, First O
 1. Fixed size limits the number of elements that can be stored.
 2. Inefficient memory usage if the array is not fully utilized.
 3. Requires resizing if the stack grows beyond the array's capacity.
+
+
+Time and Space Complexity Table for Stack Using Array:
+
+---------------------------------
+| Operation   | Time Complexity | Space Complexity |
+---------------------------------
+| Push        | O(1)            | O(1)             |
+| Pop         | O(1)            | O(1)             |
+| Peek        | O(1)            | O(1)             |
+| IsEmpty     | O(1)            | O(1)             |
+| IsFull      | O(1)            | O(1)             |
+---------------------------------
+
+**Notes:**
+1. All operations have O(1) time complexity as they involve direct index-based operations.
+2. Space complexity is O(n), where `n` is the maximum size of the stack array.
+3. The stack's size is limited to the fixed array size (`MAX`).
