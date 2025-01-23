@@ -10,3 +10,19 @@ A **stack** is a linear data structure that operates on the **LIFO (Last In, Fir
 2. **Pop**: Remove and return the top element of the stack.
 3. **Peek (or Top)**: Retrieve the value of the top element without removing it.
 4. **IsEmpty**: Check if the stack is empty.
+
+### Advantages:
+1. No size limit as it grows dynamically.
+2. Memory is allocated only when required.
+3. Efficient insertion and deletion (O(1)).
+
+### Disadvantages:
+1. Requires extra memory for the `next` pointer in each node.
+2. Slower access compared to arrays due to pointer traversal.
+
+### Implementation:
+
+#### Node Structure:
+Each node contains:
+1. **data**: The value stored in the node.
+2. **next**: A pointer to the next node in the stack.
