@@ -46,43 +46,140 @@ Breadth-First Search (BFS) is a graph traversal algorithm that explores all the 
 
 ---
 
-## Python Implementation
-```python
-from collections import deque
+## C Implementation
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-class Graph:
-    def __init__(self, vertices):
-        self.vertices = vertices
-        self.adj_list = {i: [] for i in range(vertices)}
+#define MAX_VERTICES 100
 
-    def add_edge(self, src, dest):
-        self.adj_list[src].append(dest)
-        self.adj_list[dest].append(src)
+// Structure for the adjacency list node
+typedef struct Node {
+    int vertex;
+    struct Node* next;
+} Node;
 
-    def bfs(self, start):
-        visited = [False] * self.vertices
-        queue = deque([start])
-        visited[start] = True
+// Structure for the graph
+typedef struct Graph {
+    int numVertices;
+    Node** adjLists;
+    bool* visited;
+} Graph;
 
-        while queue:
-            current = queue.popleft()
-            print(current, end=" ")
+// Structure for the queue
+typedef struct Queue {
+    int items[MAX_VERTICES];
+    int front;
+    int rear;
+} Queue;
 
-            for neighbor in self.adj_list[current]:
-                if not visited[neighbor]:
-                    queue.append(neighbor)
-                    visited[neighbor] = True
+// Function to create a queue
+Queue* createQueue() {
+    Queue* q = malloc(sizeof(Queue));
+    q->front = -1;
+    q->rear = -1;
+    return q;
+}
 
-# Example Usage
-graph = Graph(6)
-graph.add_edge(0, 1)
-graph.add_edge(0, 2)
-graph.add_edge(1, 3)
-graph.add_edge(1, 4)
-graph.add_edge(2, 5)
+// Check if the queue is empty
+bool isEmpty(Queue* q) {
+    return q->front == -1;
+}
 
-print("BFS Traversal starting from vertex 0:")
-graph.bfs(0)
+// Enqueue an element
+void enqueue(Queue* q, int value) {
+    if (q->rear == MAX_VERTICES - 1) {
+        printf("Queue is full!\n");
+        return;
+    }
+    if (q->front == -1) q->front = 0;
+    q->items[++q->rear] = value;
+}
+
+// Dequeue an element
+int dequeue(Queue* q) {
+    if (isEmpty(q)) {
+        printf("Queue is empty!\n");
+        return -1;
+    }
+    int item = q->items[q->front];
+    if (q->front >= q->rear) {
+        q->front = -1;
+        q->rear = -1;
+    } else {
+        q->front++;
+    }
+    return item;
+}
+
+// Function to create a graph
+Graph* createGraph(int vertices) {
+    Graph* graph = malloc(sizeof(Graph));
+    graph->numVertices = vertices;
+    graph->adjLists = malloc(vertices * sizeof(Node*));
+    graph->visited = malloc(vertices * sizeof(bool));
+
+    for (int i = 0; i < vertices; i++) {
+        graph->adjLists[i] = NULL;
+        graph->visited[i] = false;
+    }
+    return graph;
+}
+
+// Function to add an edge
+void addEdge(Graph* graph, int src, int dest) {
+    Node* newNode = malloc(sizeof(Node));
+    newNode->vertex = dest;
+    newNode->next = graph->adjLists[src];
+    graph->adjLists[src] = newNode;
+
+    // Add edge for undirected graph
+    newNode = malloc(sizeof(Node));
+    newNode->vertex = src;
+    newNode->next = graph->adjLists[dest];
+    graph->adjLists[dest] = newNode;
+}
+
+// BFS algorithm
+void bfs(Graph* graph, int startVertex) {
+    Queue* q = createQueue();
+
+    graph->visited[startVertex] = true;
+    enqueue(q, startVertex);
+
+    while (!isEmpty(q)) {
+        int currentVertex = dequeue(q);
+        printf("%d ", currentVertex);
+
+        Node* temp = graph->adjLists[currentVertex];
+        while (temp) {
+            int adjVertex = temp->vertex;
+
+            if (!graph->visited[adjVertex]) {
+                graph->visited[adjVertex] = true;
+                enqueue(q, adjVertex);
+            }
+            temp = temp->next;
+        }
+    }
+}
+
+// Main function
+int main() {
+    Graph* graph = createGraph(6);
+
+    addEdge(graph, 0, 1);
+    addEdge(graph, 0, 2);
+    addEdge(graph, 1, 3);
+    addEdge(graph, 1, 4);
+    addEdge(graph, 2, 5);
+
+    printf("BFS Traversal starting from vertex 0:\n");
+    bfs(graph, 0);
+
+    return 0;
+}
 ```
 
 ---
