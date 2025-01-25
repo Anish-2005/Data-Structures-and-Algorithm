@@ -9,6 +9,7 @@ An AVL Tree is a self-balancing binary search tree where the difference between 
   /  \      \
  10   25     50
 
+
 ## Operations and Their Complexities:
 
 | Operation            | Time Complexity | Space Complexity |
