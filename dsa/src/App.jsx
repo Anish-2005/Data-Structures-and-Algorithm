@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import DSALanding from './pages/Landing';
-
+import Labs from './pages/Labs';
 
 const PageTransition = ({ children }) => (
   <motion.div
@@ -32,7 +32,14 @@ function App() {
                   </PageTransition>
                 } 
               />
-             
+             <Route 
+                path="/labs" 
+                element={
+                  <PageTransition>
+                    <Labs />
+                  </PageTransition>
+                } 
+              />
             
             </Routes>
           </AnimatePresence>
