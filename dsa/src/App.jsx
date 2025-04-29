@@ -1,8 +1,10 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import DSALanding from './pages/Landing';
-import Labs from './pages/Labs';
+import DSALanding from './pages/Landing/Landing';
+import Labs from './pages/Labs/Labs';
+import Visualizer from './pages/Visualizer/Visualizer';
+import Compiler from './pages/Compiler/Compiler';
 
 const PageTransition = ({ children }) => (
   <motion.div
@@ -40,7 +42,22 @@ function App() {
                   </PageTransition>
                 } 
               />
-            
+             <Route 
+                path="/visualizer" 
+                element={
+                  <PageTransition>
+                    <Visualizer />
+                  </PageTransition>
+                } 
+              />
+               <Route 
+                path="/compiler" 
+                element={
+                  <PageTransition>
+                    <Compiler />
+                  </PageTransition>
+                } 
+              />
             </Routes>
           </AnimatePresence>
         </main>
