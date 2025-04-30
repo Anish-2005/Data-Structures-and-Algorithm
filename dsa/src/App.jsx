@@ -5,7 +5,8 @@ import DSALanding from './pages/Landing/Landing';
 import Labs from './pages/Labs/Labs';
 import Visualizer from './pages/Visualizer/Visualizer';
 import Compiler from './pages/Compiler/Compiler';
-
+import Learn from './pages/Learn/Learn';
+import ChatBot from './pages/Chatbot/Chatbot';
 const PageTransition = ({ children }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -22,7 +23,7 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         {/* Navigation can be added here if it's shared across all pages */}
-        
+        <ChatBot />
         <main className="flex-grow relative z-10">
           <AnimatePresence mode="wait">
             <Routes>
@@ -55,6 +56,14 @@ function App() {
                 element={
                   <PageTransition>
                     <Compiler />
+                  </PageTransition>
+                } 
+              />
+               <Route 
+                path="/learn" 
+                element={
+                  <PageTransition>
+                    <Learn />
                   </PageTransition>
                 } 
               />

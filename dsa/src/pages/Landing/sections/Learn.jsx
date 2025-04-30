@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import React from 'react';
 const Learn = () => {
   return (
-    <motion.section 
+    <motion.section
       className="container mx-auto py-24 px-4 relative z-10"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -11,7 +12,7 @@ const Learn = () => {
     >
       <div className="code-galaxy rounded-[3rem] border-2 border-purple-800/50 bg-gray-900/50 backdrop-blur-2xl p-12">
         <div className="flex flex-col md:flex-row gap-12 items-center">
-          
+
           {/* Text Content */}
           <div className="flex-1">
             <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 mb-6">
@@ -20,10 +21,15 @@ const Learn = () => {
             <p className="text-purple-200 mb-8">
               Master Data Structures & Algorithms with interactive visual tools, real-time code feedback, and AI-powered coaching. Your journey starts here.
             </p>
-            <button className="relative inline-flex items-center justify-center px-8 py-4 font-semibold text-lg text-white bg-gradient-to-br from-pink-600 to-purple-700 rounded-full shadow-xl hover:scale-105 transition-all duration-300 group">
+            <Link
+              to="/learn"
+              className="relative inline-flex items-center justify-center px-8 py-4 font-semibold text-lg text-white bg-gradient-to-br from-pink-600 to-purple-700 rounded-full shadow-xl hover:scale-105 transition-all duration-300 group"
+              role="button"
+              aria-label="Start Learning"
+            >
               <span className="absolute inset-0 bg-white opacity-10 rounded-full blur-md group-hover:opacity-20 transition" />
               <span className="relative z-10">🚀 Start Learning</span>
-            </button>
+            </Link>
           </div>
 
           {/* Animated Data Structure Graphic */}

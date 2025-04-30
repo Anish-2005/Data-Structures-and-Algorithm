@@ -26,7 +26,7 @@ const Navbar = () => {
               <FiLayers className="text-white text-xl" />
             </motion.div>
             <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-pink-200 tracking-tight">
-              Quantum DSA
+              Quantum Labs
               <span className="text-purple-400 text-sm ml-2 font-normal">v2.0</span>
             </h1>
           </Link>
