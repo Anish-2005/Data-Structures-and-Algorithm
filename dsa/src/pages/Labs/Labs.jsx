@@ -2,10 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import {
-  FaProjectDiagram, FaCodeBranch, FaSort, FaSitemap, FaBookOpen, FaHome,
-  FaTimes, FaClipboard, FaTrash, FaPlus, FaLock, FaRegChartBar, FaCode, FaBrain, FaUbuntu
+  FaProjectDiagram, FaCodeBranch, FaSort, FaSitemap, FaBookOpen, FaHome, FaTimes, FaClipboard,
+  FaTrash, FaPlus, FaLock, FaRegChartBar, FaCode, FaBrain, FaUbuntu, FaReact, FaPython, FaGitAlt, FaDocker,
+  FaSearch
 } from 'react-icons/fa';
-import { FiCode, FiHome, FiLock, FiX, FiClipboard, FiChevronRight, FiLayers, FiZap, FiMenu } from 'react-icons/fi';
+
+import {
+  FiCode, FiHome, FiLock, FiX, FiClipboard, FiChevronRight, FiLayers, FiZap, FiMenu
+} from 'react-icons/fi';
+
+import {
+  MdScience, MdOutlineSecurity, MdAutoGraph, MdOutlineDeveloperMode,MdQueue
+} from 'react-icons/md';
+
+import {
+  AiOutlineBug, AiOutlineCloud, AiOutlineDatabase
+} from 'react-icons/ai';
+
+import {
+  BsFillLightningChargeFill, BsTerminalFill, BsFillGearFill
+} from 'react-icons/bs';
+
+import {
+  IoRocketOutline, IoAnalyticsSharp
+} from 'react-icons/io5';
+
+import {
+  RiJavascriptFill, RiNodejsFill, RiCodeSSlashFill
+} from 'react-icons/ri';
+
+import {
+  TbBrandVscode, TbBrandNextjs
+} from 'react-icons/tb';
+
+import {
+  SiTypescript, SiMongodb, SiTailwindcss, SiFramer, SiVite,  SiPostgresql
+} from 'react-icons/si';
 import Navbar from './sections/Navbar';
 import HolographicGrid from '../../components/HolographicGrid';
 import QuantumParticles from '../../components/QuantumParticles';
@@ -17,9 +49,35 @@ import AdminPanelButton from './sections/AdminPanelButton';
 
 
 const iconComponents = {
-  FaProjectDiagram, FaCodeBranch, FaSort, FaSitemap, FaRegChartBar, FaCode, FaBrain,
-  FaBookOpen, FaHome, FaClipboard, FaTrash, FaPlus, FaLock
+  // FontAwesome
+  FaProjectDiagram, FaCodeBranch, FaSort, FaSitemap, FaBookOpen, FaHome, FaTimes, FaClipboard,
+  FaTrash, FaPlus, FaLock, FaRegChartBar, FaCode, FaBrain, FaUbuntu, FaReact, FaPython, FaGitAlt, FaDocker,FaSearch,
+
+  // Feather
+  FiCode, FiHome, FiLock, FiX, FiClipboard, FiChevronRight, FiLayers, FiZap, FiMenu,
+
+  // Material Design
+  MdScience, MdOutlineSecurity, MdAutoGraph, MdOutlineDeveloperMode,MdQueue,
+
+  // Ant Design
+  AiOutlineBug, AiOutlineCloud, AiOutlineDatabase,
+
+  // Bootstrap
+  BsFillLightningChargeFill, BsTerminalFill, BsFillGearFill,
+
+  // Ionicons
+  IoRocketOutline, IoAnalyticsSharp,
+
+  // Remix Icons
+  RiJavascriptFill, RiNodejsFill, RiCodeSSlashFill,
+
+  // Tabler
+  TbBrandVscode, TbBrandNextjs,
+
+  // Simple Icons (brands)
+  SiTypescript, SiMongodb, SiTailwindcss, SiFramer, SiVite,SiPostgresql
 };
+
 
 export default function DSALabsPage() {
   const [assignments, setAssignments] = useState([]);
@@ -427,12 +485,14 @@ export default function DSALabsPage() {
                     <form onSubmit={handleSubmit} className="space-y-8">
                       <div className="space-y-4">
                         <label className="text-sm font-medium text-purple-300">Challenge Title</label>
-                        <input
+                        <textarea
                           placeholder="Enter Quantum Challenge Name"
                           value={formData.title}
                           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                          className="w-full p-3 bg-gray-700/50 rounded-lg border border-purple-800/50 focus:border-purple-500 outline-none"
+                          className="w-full p-3 bg-gray-700/50 rounded-lg border border-purple-800/50 focus:border-purple-500 outline-none resize-none"
+                          rows="2"
                         />
+
                       </div>
 
                       <div className="space-y-4">
