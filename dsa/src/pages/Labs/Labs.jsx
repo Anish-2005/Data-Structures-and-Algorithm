@@ -108,7 +108,7 @@ export default function DSALabsPage() {
     const abortController = new AbortController();
     const fetchAssignments = async () => {
       try {
-        const response = await fetch('https://object-oriented-programming-cpp-lab.onrender.com/api/dsa-assignments', {
+        const response = await fetch('https://data-structures-and-algorithm.onrender.com/api/dsa-assignments', {
           signal: abortController.signal
         });
         if (!response.ok) throw new Error('Failed to fetch assignments');
@@ -173,7 +173,7 @@ export default function DSALabsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://object-oriented-programming-cpp-lab.onrender.com/api/dsa-assignments', {
+      const response = await fetch('https://data-structures-and-algorithm.onrender.com/api/dsa-assignments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -196,7 +196,7 @@ export default function DSALabsPage() {
   };
   const handleDelete = async (id) => {
     try {
-      await fetch(`https://object-oriented-programming-cpp-lab.onrender.com/api/dsa-assignments/${id}`, { method: 'DELETE' });
+      await fetch(`https://data-structures-and-algorithm.onrender.com/api/dsa-assignments/${id}`, { method: 'DELETE' });
       setAssignments(prev => prev.filter(a => a._id !== id));
     } catch (err) {
       setError(err.message);

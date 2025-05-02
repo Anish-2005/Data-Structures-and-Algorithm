@@ -12,13 +12,11 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 app.use(cors({
-  origin: true,
-  credentials: false,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200,
-  maxAge: 86400 // cache preflight response for 1 day
-}));
+    origin: '*',  // Allow all origins (this is for testing, ideally restrict it to your frontend's origin)
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
