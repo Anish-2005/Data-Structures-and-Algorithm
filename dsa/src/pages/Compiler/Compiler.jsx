@@ -61,7 +61,7 @@ for(let i=0; i<5; i++) {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND}/api/history`);
+        const response = await fetch(`${import.meta.env.REACT_APP_BACKEND}/api/history`);
         if (!response.ok) throw new Error('Failed to fetch history');
 
         const data = await response.json();

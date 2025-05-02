@@ -76,7 +76,7 @@ export default function DSALabsPage() {
   const [pinVerified, setPinVerified] = useState(false);
   const [editingAssignment, setEditingAssignment] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const HARDCODED_PIN = '1430';
+  const HARDCODED_PIN = import.meta.env.VITE_ADMIN_PIN;
   
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 100]);
@@ -88,7 +88,7 @@ export default function DSALabsPage() {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const response = await fetch(`https://data-structures-and-algorithm.onrender.com/api/dsa-assignments`, {
+        const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments`, {
           signal: abortController.signal
         });
         
@@ -170,13 +170,13 @@ export default function DSALabsPage() {
     try {
       let response;
       if (editMode && editingAssignment) {
-        response = await fetch(`${process.env.REACT_APP_BACKEND}/api/dsa-assignments/${editingAssignment._id}/full`, {
+        response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments/${editingAssignment._id}/full`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
         });
       } else {
-        response = await fetch(`${process.env.REACT_APP_BACKEND}/api/dsa-assignments`, {
+        response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
@@ -207,7 +207,7 @@ export default function DSALabsPage() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`${process.env.REACT_APP_BACKEND}/api/dsa-assignments/${id}`, { method: 'DELETE' });
+      await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments/${id}`, { method: 'DELETE' });
       setAssignments(prev => prev.filter(a => a._id !== id));
     } catch (err) {
       setError(err.message);
