@@ -93,7 +93,7 @@ Create the following `.env` files:
 
 ```env
 REACT_APP_API_URL=http://localhost:5000
-VITE_ADMIN_PIN=1234  # For admin panel access
+VITE_ADMIN_PIN=****  # For admin panel access
 ```
 ### 🔐 `server/.env`
 
