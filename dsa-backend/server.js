@@ -225,7 +225,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start Server
-const PORT = process.env.DSA_HISTORY_PORT || 5001;
+const PORT = process.env.DSA_HISTORY_PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 DSA/History server running on port ${PORT}`);
   console.log('🛡️  CORS enabled for origins:');
