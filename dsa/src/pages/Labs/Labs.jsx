@@ -88,7 +88,7 @@ export default function DSALabsPage() {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND}/api/dsa-assignments`, {
+        const response = await fetch(`https://data-structures-and-algorithm.onrender.com/api/dsa-assignments`, {
           signal: abortController.signal
         });
         
