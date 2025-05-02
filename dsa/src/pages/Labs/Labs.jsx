@@ -193,7 +193,7 @@ export default function DSALabsPage() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`${process.env.REACT_APP_ADMIN_PIN}/api/dsa-assignments/${id}`, { method: 'DELETE' });
+      await fetch(`${process.env.REACT_APP_BACKEND}/api/dsa-assignments/${id}`, { method: 'DELETE' });
       setAssignments(prev => prev.filter(a => a._id !== id));
     } catch (err) {
       setError(err.message);
