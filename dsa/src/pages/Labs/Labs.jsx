@@ -91,6 +91,7 @@ export default function DSALabsPage() {
         const response = await fetch(`${process.env.REACT_APP_BACKEND}/api/dsa-assignments`, {
           signal: abortController.signal
         });
+        
   
         // Check if response is JSON
         const contentType = response.headers.get('content-type');
