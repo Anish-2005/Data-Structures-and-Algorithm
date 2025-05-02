@@ -91,19 +91,31 @@ export default function DSALabsPage() {
         const response = await fetch(`${process.env.REACT_APP_BACKEND}/api/dsa-assignments`, {
           signal: abortController.signal
         });
-        
-        if (!response.ok) throw new Error('Failed to fetch assignments');
+  
+        // Check if response is JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          const text = await response.text();
+          throw new Error(`Server returned HTML instead of JSON: ${text.substring(0, 100)}`);
+        }
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+        }
+  
         const { data } = await response.json();
-
+        
         const formatted = data.map(a => ({
           ...a,
           icon: iconComponents[a.icon] || FaRegChartBar
         }));
-
+  
         setAssignments(formatted);
         setError(null);
       } catch (err) {
         if (!abortController.signal.aborted) {
+          console.error('Fetch error:', err);
           setError(err.message);
         }
       } finally {
@@ -112,6 +124,7 @@ export default function DSALabsPage() {
         }
       }
     };
+    
     fetchAssignments();
     return () => abortController.abort();
   }, []);
