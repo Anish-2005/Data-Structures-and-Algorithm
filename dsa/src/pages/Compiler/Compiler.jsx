@@ -61,7 +61,7 @@ for(let i=0; i<5; i++) {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch('https://object-oriented-programming-cpp-lab.onrender.com/api/history');
+        const response = await fetch(`${process.env.REACT_APP_BACKEND}/api/history`);
         if (!response.ok) throw new Error('Failed to fetch history');
 
         const data = await response.json();
@@ -77,7 +77,7 @@ for(let i=0; i<5; i++) {
 
   const saveHistory = async (newEntry) => {
     try {
-      const response = await fetch('https://data-structures-and-algorithm.onrender.com/api/history', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND}/api/history`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
