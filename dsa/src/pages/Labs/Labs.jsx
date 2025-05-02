@@ -164,47 +164,60 @@ export default function DSALabsPage() {
     );
     setFormData(prev => ({ ...prev, problems: newProblems }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Prepare the submission data with proper icon handling
+      const submissionData = {
+        ...formData,
+        // Ensure icon is a string identifier, not a component
+        icon: typeof formData.icon === 'string' ? formData.icon : 
+              formData.icon?.displayName || 'FaRegChartBar'
+      };
+  
       let response;
       if (editMode && editingAssignment) {
         response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments/${editingAssignment._id}/full`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(submissionData), // Use the prepared data
         });
       } else {
         response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(submissionData), // Use the prepared data
         });
       }
-
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
       const { data } = await response.json();
       
+      // Update state with the new/updated assignment
       if (editMode) {
         setAssignments(prev => prev.map(a => 
           a._id === data._id ? {
             ...data,
-            icon: iconComponents[data.icon] || FaRegChartBar,
+            icon: iconComponents[data.icon] || FaRegChartBar, // Map icon string to component
           } : a
         ));
       } else {
         setAssignments(prev => [{
           ...data,
-          icon: iconComponents[data.icon] || FaRegChartBar,
+          icon: iconComponents[data.icon] || FaRegChartBar, // Map icon string to component
         }, ...prev]);
       }
       
       handleCloseAdminPanel();
     } catch (error) {
       console.error('Error submitting challenge:', error);
+      // Consider adding user feedback here
+      // setError(error.message);
     }
   };
-
   const handleDelete = async (id) => {
     try {
       await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments/${id}`, { method: 'DELETE' });
@@ -219,7 +232,7 @@ export default function DSALabsPage() {
     setEditMode(true);
     setFormData({
       title: assignment.title,
-      icon: assignment.icon,
+      icon: assignment.iconName || 'FaRegChartBar',
       problems: assignment.problems.map(p => ({
         question: p.question,
         code: p.code,
