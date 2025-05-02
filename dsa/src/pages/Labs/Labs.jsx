@@ -76,7 +76,7 @@ export default function DSALabsPage() {
   const [pinVerified, setPinVerified] = useState(false);
   const [editingAssignment, setEditingAssignment] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const HARDCODED_PIN = '1234';
+  const HARDCODED_PIN = process.env.REACT_APP_ADMIN_PIN || '1430';
   
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 100]);
