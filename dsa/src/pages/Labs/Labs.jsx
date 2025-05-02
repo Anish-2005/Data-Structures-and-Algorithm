@@ -77,7 +77,7 @@ export default function DSALabsPage() {
   const [editingAssignment, setEditingAssignment] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const HARDCODED_PIN = import.meta.env.VITE_ADMIN_PIN;
-  
+
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 100]);
   const y2 = useTransform(scrollY, [0, 500], [0, 50]);
@@ -91,27 +91,26 @@ export default function DSALabsPage() {
         const response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments`, {
           signal: abortController.signal
         });
-        
-  
+
+
         // Check if response is JSON
         const contentType = response.headers.get('content-type');
         if (!contentType || !contentType.includes('application/json')) {
           const text = await response.text();
           throw new Error(`Server returned HTML instead of JSON: ${text.substring(0, 100)}`);
         }
-  
+
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
         }
-  
+
         const { data } = await response.json();
-        
+
         const formatted = data.map(a => ({
           ...a,
-          icon: iconComponents[a.icon] || FaRegChartBar
         }));
-  
+
         setAssignments(formatted);
         setError(null);
       } catch (err) {
@@ -125,7 +124,7 @@ export default function DSALabsPage() {
         }
       }
     };
-    
+
     fetchAssignments();
     return () => abortController.abort();
   }, []);
@@ -167,14 +166,11 @@ export default function DSALabsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Prepare the submission data with proper icon handling
       const submissionData = {
         ...formData,
-        // Ensure icon is a string identifier, not a component
-        icon: typeof formData.icon === 'string' ? formData.icon : 
-              formData.icon?.displayName || 'FaRegChartBar'
+        // Ensure icon is saved as a string identifier
+        icon: typeof formData.icon === 'string' ? formData.icon : 'FaRegChartBar'
       };
-  
       let response;
       if (editMode && editingAssignment) {
         response = await fetch(`${import.meta.env.VITE_APP_BACKEND}/api/dsa-assignments/${editingAssignment._id}/full`, {
@@ -189,16 +185,16 @@ export default function DSALabsPage() {
           body: JSON.stringify(submissionData), // Use the prepared data
         });
       }
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       const { data } = await response.json();
-      
+
       // Update state with the new/updated assignment
       if (editMode) {
-        setAssignments(prev => prev.map(a => 
+        setAssignments(prev => prev.map(a =>
           a._id === data._id ? {
             ...data,
             icon: iconComponents[data.icon] || FaRegChartBar, // Map icon string to component
@@ -210,7 +206,7 @@ export default function DSALabsPage() {
           icon: iconComponents[data.icon] || FaRegChartBar, // Map icon string to component
         }, ...prev]);
       }
-      
+
       handleCloseAdminPanel();
     } catch (error) {
       console.error('Error submitting challenge:', error);
@@ -232,7 +228,7 @@ export default function DSALabsPage() {
     setEditMode(true);
     setFormData({
       title: assignment.title,
-      icon: assignment.iconName || 'FaRegChartBar',
+      icon: assignment.icon || 'FaRegChartBar', // Changed from iconName to icon
       problems: assignment.problems.map(p => ({
         question: p.question,
         code: p.code,
@@ -289,7 +285,7 @@ export default function DSALabsPage() {
 
       <div className="container mx-auto pt-16 px-0 relative z-10">
         <HeroSection />
-        
+
         <motion.section
           id="labs"
           className="labs py-24 px-4 relative z-10"
@@ -312,11 +308,15 @@ export default function DSALabsPage() {
               }}
             >
               {assignments.map((assignment) => {
-                const IconComponent = iconComponents[assignment.icon] || FaRegChartBar;
+                // Safely get the icon component - fallback to FaRegChartBar if not found
+                const IconComponent = typeof assignment.icon === 'string'
+                  ? iconComponents[assignment.icon] || FaRegChartBar
+                  : FaRegChartBar;
 
                 return (
                   <motion.div
                     key={assignment._id}
+                    className="group relative h-full"
                     variants={{
                       hidden: { opacity: 0, y: 30 },
                       visible: {
@@ -325,7 +325,6 @@ export default function DSALabsPage() {
                         transition: { type: "spring", stiffness: 300 }
                       }
                     }}
-                    className="group relative h-full"
                   >
                     <motion.div
                       className="holographic-card cursor-pointer p-8 rounded-2xl border border-purple-800/50 bg-gradient-to-br from-purple-900/20 to-pink-900/10 backdrop-blur-xl h-full overflow-hidden"
@@ -417,8 +416,10 @@ export default function DSALabsPage() {
 
                   <div className="flex items-center mb-8 gap-4">
                     <div className="text-4xl text-purple-400">
-                      {selectedAssignment.icon && iconComponents[selectedAssignment.icon] && (
+                      {selectedAssignment.icon && typeof selectedAssignment.icon === 'string' && iconComponents[selectedAssignment.icon] ? (
                         React.createElement(iconComponents[selectedAssignment.icon])
+                      ) : (
+                        <FaRegChartBar />
                       )}
                     </div>
                     <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-pink-200">
