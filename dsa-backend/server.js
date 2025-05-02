@@ -206,7 +206,128 @@ router.route('/dsa-assignments/:id')
       respond.error(res, 'Failed to delete assignment', 500, err);
     }
   });
+//Edit Routes
+router.route('/dsa-assignments/:assignmentId/problems')
+  .post(async (req, res) => {
+    try {
+      const { question, code, output } = req.body;
+      
+      if (!question || !code || !output) {
+        return respond.error(res, 'Question, code, and output are required', 400);
+      }
 
+      const assignment = await DSAAssignment.findById(req.params.assignmentId);
+      if (!assignment) {
+        return respond.error(res, 'Assignment not found', 404);
+      }
+
+      const newProblem = {
+        question: question.trim(),
+        code: code.trim(),
+        output: output.trim()
+      };
+
+      assignment.problems.push(newProblem);
+      const saved = await assignment.save();
+      
+      respond.success(res, saved.problems[saved.problems.length - 1], 201);
+    } catch (err) {
+      respond.error(res, 'Failed to add problem', 500, err);
+    }
+  });
+
+router.route('/dsa-assignments/:assignmentId/problems/:problemId')
+  .put(async (req, res) => {
+    try {
+      const { question, code, output } = req.body;
+      const assignment = await DSAAssignment.findById(req.params.assignmentId);
+      
+      if (!assignment) {
+        return respond.error(res, 'Assignment not found', 404);
+      }
+
+      const problemIndex = assignment.problems.findIndex(
+        p => p._id.toString() === req.params.problemId
+      );
+
+      if (problemIndex === -1) {
+        return respond.error(res, 'Problem not found', 404);
+      }
+
+      // Update only provided fields
+      if (question) assignment.problems[problemIndex].question = question.trim();
+      if (code) assignment.problems[problemIndex].code = code.trim();
+      if (output) assignment.problems[problemIndex].output = output.trim();
+
+      const saved = await assignment.save();
+      respond.success(res, saved.problems[problemIndex]);
+    } catch (err) {
+      respond.error(res, 'Failed to update problem', 500, err);
+    }
+  })
+  .delete(async (req, res) => {
+    try {
+      const assignment = await DSAAssignment.findById(req.params.assignmentId);
+      
+      if (!assignment) {
+        return respond.error(res, 'Assignment not found', 404);
+      }
+
+      const initialLength = assignment.problems.length;
+      assignment.problems = assignment.problems.filter(
+        p => p._id.toString() !== req.params.problemId
+      );
+
+      if (assignment.problems.length === initialLength) {
+        return respond.error(res, 'Problem not found', 404);
+      }
+
+      await assignment.save();
+      respond.success(res, { message: 'Problem deleted successfully' });
+    } catch (err) {
+      respond.error(res, 'Failed to delete problem', 500, err);
+    }
+  });
+
+// Bulk update endpoint for entire assignment
+router.put('/dsa-assignments/:id/full', async (req, res) => {
+  try {
+    const { title, icon, problems } = req.body;
+    
+    if (!title || !problems || !Array.isArray(problems)) {
+      return respond.error(res, 'Title and problems array are required', 400);
+    }
+
+    const assignment = await DSAAssignment.findById(req.params.id);
+    if (!assignment) {
+      return respond.error(res, 'Assignment not found', 404);
+    }
+
+    // Validate all problems
+    const validatedProblems = problems.map((p, index) => {
+      if (!p.question || !p.code || !p.output) {
+        throw new Error(`Problem ${index + 1} is missing required fields`);
+      }
+      return {
+        question: p.question.trim(),
+        code: p.code.trim(),
+        output: p.output.trim(),
+        // Preserve existing ID if this is an update
+        _id: p._id || new mongoose.Types.ObjectId()
+      };
+    });
+
+    // Update assignment
+    assignment.title = title.trim();
+    assignment.icon = icon || 'FaCode';
+    assignment.problems = validatedProblems;
+
+    const saved = await assignment.save();
+    respond.success(res, saved);
+  } catch (err) {
+    respond.error(res, 'Failed to update assignment', 500, err);
+  }
+});
 // History Routes
 router.route('/history')
   .post(async (req, res) => {

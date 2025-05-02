@@ -4,39 +4,31 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import {
   FaProjectDiagram, FaCodeBranch, FaSort, FaSitemap, FaBookOpen, FaHome, FaTimes, FaClipboard,
   FaTrash, FaPlus, FaLock, FaRegChartBar, FaCode, FaBrain, FaUbuntu, FaReact, FaPython, FaGitAlt, FaDocker,
-  FaSearch
+  FaSearch, FaEdit, FaSave
 } from 'react-icons/fa';
-
 import {
   FiCode, FiHome, FiLock, FiX, FiClipboard, FiChevronRight, FiLayers, FiZap, FiMenu
 } from 'react-icons/fi';
-
 import {
-  MdScience, MdOutlineSecurity, MdAutoGraph, MdOutlineDeveloperMode,MdQueue
+  MdScience, MdOutlineSecurity, MdAutoGraph, MdOutlineDeveloperMode, MdQueue
 } from 'react-icons/md';
-
 import {
   AiOutlineBug, AiOutlineCloud, AiOutlineDatabase
 } from 'react-icons/ai';
-
 import {
   BsFillLightningChargeFill, BsTerminalFill, BsFillGearFill
 } from 'react-icons/bs';
-
 import {
   IoRocketOutline, IoAnalyticsSharp
 } from 'react-icons/io5';
-
 import {
   RiJavascriptFill, RiNodejsFill, RiCodeSSlashFill
 } from 'react-icons/ri';
-
 import {
   TbBrandVscode, TbBrandNextjs
 } from 'react-icons/tb';
-
 import {
-  SiTypescript, SiMongodb, SiTailwindcss, SiFramer, SiVite,  SiPostgresql
+  SiTypescript, SiMongodb, SiTailwindcss, SiFramer, SiVite, SiPostgresql
 } from 'react-icons/si';
 import Navbar from './sections/Navbar';
 import HolographicGrid from '../../components/HolographicGrid';
@@ -45,39 +37,28 @@ import Footer from '../../components/Footer';
 import HeroSection from './sections/HeroSection';
 import TechStackOrbit from '../../components/TechStackOrbit';
 import LabsSection from './sections/LabsSection';
-import AdminPanelButton from './sections/AdminPanelButton';
-
 
 const iconComponents = {
   // FontAwesome
   FaProjectDiagram, FaCodeBranch, FaSort, FaSitemap, FaBookOpen, FaHome, FaTimes, FaClipboard,
-  FaTrash, FaPlus, FaLock, FaRegChartBar, FaCode, FaBrain, FaUbuntu, FaReact, FaPython, FaGitAlt, FaDocker,FaSearch,
-
+  FaTrash, FaPlus, FaLock, FaRegChartBar, FaCode, FaBrain, FaUbuntu, FaReact, FaPython, FaGitAlt, FaDocker, FaSearch, FaEdit, FaSave,
   // Feather
   FiCode, FiHome, FiLock, FiX, FiClipboard, FiChevronRight, FiLayers, FiZap, FiMenu,
-
   // Material Design
-  MdScience, MdOutlineSecurity, MdAutoGraph, MdOutlineDeveloperMode,MdQueue,
-
+  MdScience, MdOutlineSecurity, MdAutoGraph, MdOutlineDeveloperMode, MdQueue,
   // Ant Design
   AiOutlineBug, AiOutlineCloud, AiOutlineDatabase,
-
   // Bootstrap
   BsFillLightningChargeFill, BsTerminalFill, BsFillGearFill,
-
   // Ionicons
   IoRocketOutline, IoAnalyticsSharp,
-
   // Remix Icons
   RiJavascriptFill, RiNodejsFill, RiCodeSSlashFill,
-
   // Tabler
   TbBrandVscode, TbBrandNextjs,
-
   // Simple Icons (brands)
-  SiTypescript, SiMongodb, SiTailwindcss, SiFramer, SiVite,SiPostgresql
+  SiTypescript, SiMongodb, SiTailwindcss, SiFramer, SiVite, SiPostgresql
 };
-
 
 export default function DSALabsPage() {
   const [assignments, setAssignments] = useState([]);
@@ -93,11 +74,11 @@ export default function DSALabsPage() {
   });
   const [pin, setPin] = useState('');
   const [pinVerified, setPinVerified] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [editingAssignment, setEditingAssignment] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const HARDCODED_PIN = '1234';
-  // Add this inside your component
+  
   const { scrollY } = useScroll();
-
   const y1 = useTransform(scrollY, [0, 500], [0, 100]);
   const y2 = useTransform(scrollY, [0, 500], [0, 50]);
 
@@ -105,7 +86,6 @@ export default function DSALabsPage() {
   const abortController = new AbortController();
 
   useEffect(() => {
-    const abortController = new AbortController();
     const fetchAssignments = async () => {
       try {
         const response = await fetch('https://data-structures-and-algorithm.onrender.com/api/dsa-assignments', {
@@ -133,9 +113,7 @@ export default function DSALabsPage() {
     };
     fetchAssignments();
     return () => abortController.abort();
-  }, []); // Empty dependency array for single execution
-
-
+  }, []);
 
   const handlePinSubmit = (e) => {
     e.preventDefault();
@@ -154,6 +132,8 @@ export default function DSALabsPage() {
       icon: 'FaRegChartBar',
       problems: [{ question: '', code: '', output: '' }]
     });
+    setEditingAssignment(null);
+    setEditMode(false);
   };
 
   const addProblemField = () => {
@@ -173,27 +153,43 @@ export default function DSALabsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://data-structures-and-algorithm.onrender.com/api/dsa-assignments', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      let response;
+      if (editMode && editingAssignment) {
+        response = await fetch(`https://data-structures-and-algorithm.onrender.com/api/dsa-assignments/${editingAssignment._id}/full`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+      } else {
+        response = await fetch('https://data-structures-and-algorithm.onrender.com/api/dsa-assignments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+      }
 
       const { data } = await response.json();
-      setAssignments(prev => [{
-        ...data,
-        icon: iconComponents[data.icon] || FaRegChartBar,
-      }, ...prev]);
+      
+      if (editMode) {
+        setAssignments(prev => prev.map(a => 
+          a._id === data._id ? {
+            ...data,
+            icon: iconComponents[data.icon] || FaRegChartBar,
+          } : a
+        ));
+      } else {
+        setAssignments(prev => [{
+          ...data,
+          icon: iconComponents[data.icon] || FaRegChartBar,
+        }, ...prev]);
+      }
+      
+      handleCloseAdminPanel();
     } catch (error) {
       console.error('Error submitting challenge:', error);
-    } finally {
-      handleCloseAdminPanel();
-      setTimeout(() => {
-        navigate('/labs', { replace: true });
-        window.location.reload(); // reload after navigating
-      }, 0); // wait for 5 seconds
     }
   };
+
   const handleDelete = async (id) => {
     try {
       await fetch(`https://data-structures-and-algorithm.onrender.com/api/dsa-assignments/${id}`, { method: 'DELETE' });
@@ -201,6 +197,29 @@ export default function DSALabsPage() {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleEdit = (assignment) => {
+    setEditingAssignment(assignment);
+    setEditMode(true);
+    setFormData({
+      title: assignment.title,
+      icon: assignment.icon,
+      problems: assignment.problems.map(p => ({
+        question: p.question,
+        code: p.code,
+        output: p.output
+      }))
+    });
+    setShowAdminPanel(true);
+    setPinVerified(true);
+  };
+
+  const removeProblem = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      problems: prev.problems.filter((_, i) => i !== index)
+    }));
   };
 
   if (loading) {
@@ -235,17 +254,14 @@ export default function DSALabsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900/20 text-white overflow-x-hidden">
-      {/* Background Elements */}
       <QuantumParticles />
       <HolographicGrid />
       <TechStackOrbit />
       <Navbar />
 
-      {/* Main Content */}
       <div className="container mx-auto pt-16 px-0 relative z-10">
-        {/* Hero Section */}
         <HeroSection />
-        {/* Assignment Grid */}
+        
         <motion.section
           id="labs"
           className="labs py-24 px-4 relative z-10"
@@ -426,6 +442,7 @@ export default function DSALabsPage() {
             </motion.div>
           )}
         </AnimatePresence>
+
         {/* Admin Panel Modal */}
         <AnimatePresence>
           {showAdminPanel && (
@@ -444,7 +461,7 @@ export default function DSALabsPage() {
                 <div className="flex justify-between items-start mb-6">
                   <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-300">
                     <FiLock className="inline-block mr-3" />
-                    Quantum Admin Panel
+                    {editMode ? 'Edit Quantum Challenge' : 'Quantum Admin Panel'}
                   </h2>
                   <motion.button
                     onClick={handleCloseAdminPanel}
@@ -492,7 +509,6 @@ export default function DSALabsPage() {
                           className="w-full p-3 bg-gray-700/50 rounded-lg border border-purple-800/50 focus:border-purple-500 outline-none resize-none"
                           rows="2"
                         />
-
                       </div>
 
                       <div className="space-y-4">
@@ -522,10 +538,7 @@ export default function DSALabsPage() {
                               {index > 0 && (
                                 <motion.button
                                   type="button"
-                                  onClick={() => setFormData(prev => ({
-                                    ...prev,
-                                    problems: prev.problems.filter((_, i) => i !== index)
-                                  }))}
+                                  onClick={() => removeProblem(index)}
                                   whileHover={{ scale: 1.2 }}
                                   className="text-red-400 hover:text-red-300 transition-colors"
                                 >
@@ -575,9 +588,17 @@ export default function DSALabsPage() {
                         <motion.button
                           type="submit"
                           whileHover={{ scale: 1.05 }}
-                          className="py-3 bg-gradient-to-br from-purple-600 to-pink-500 rounded-lg font-bold shadow-lg shadow-purple-900/50"
+                          className="py-3 bg-gradient-to-br from-purple-600 to-pink-500 rounded-lg font-bold shadow-lg shadow-purple-900/50 flex items-center justify-center gap-2"
                         >
-                          Create Challenge
+                          {editMode ? (
+                            <>
+                              <FaSave /> Save Changes
+                            </>
+                          ) : (
+                            <>
+                              <FaPlus /> Create Challenge
+                            </>
+                          )}
                         </motion.button>
                         <motion.button
                           type="button"
@@ -585,7 +606,7 @@ export default function DSALabsPage() {
                           whileHover={{ scale: 1.05 }}
                           className="py-3 bg-gradient-to-br from-red-600 to-pink-700 rounded-lg font-bold shadow-lg shadow-red-900/50"
                         >
-                          Close Portal
+                          Cancel
                         </motion.button>
                       </div>
                     </form>
@@ -602,13 +623,24 @@ export default function DSALabsPage() {
                             whileHover={{ scale: 1.02 }}
                           >
                             <span className="text-purple-200">{assignment.title}</span>
-                            <motion.button
-                              onClick={() => handleDelete(assignment._id)}
-                              whileHover={{ scale: 1.2 }}
-                              className="p-2 text-red-400 hover:text-red-300 transition-colors"
-                            >
-                              <FaTrash className="text-lg" />
-                            </motion.button>
+                            <div className="flex gap-2">
+                              <motion.button
+                                onClick={() => handleEdit(assignment)}
+                                whileHover={{ scale: 1.2 }}
+                                className="p-2 text-blue-400 hover:text-blue-300 transition-colors"
+                                title="Edit"
+                              >
+                                <FaEdit className="text-lg" />
+                              </motion.button>
+                              <motion.button
+                                onClick={() => handleDelete(assignment._id)}
+                                whileHover={{ scale: 1.2 }}
+                                className="p-2 text-red-400 hover:text-red-300 transition-colors"
+                                title="Delete"
+                              >
+                                <FaTrash className="text-lg" />
+                              </motion.button>
+                            </div>
                           </motion.div>
                         ))}
                       </div>
@@ -619,7 +651,7 @@ export default function DSALabsPage() {
             </motion.div>
           )}
         </AnimatePresence>
-        {/* Footer */}
+
         <Footer />
       </div>
     </div>
