@@ -7,140 +7,194 @@ const compression = require('compression');
 
 const app = express();
 
-// Enhanced CORS Configuration
-const allowedOrigins = [
-  'https://quantum-dsa.vercel.app',
-  'http://localhost:3000',
-  'http://localhost:5173'
-];
+// Configuration Constants
+const CONFIG = {
+  PORT: process.env.PORT || 5000,
+  MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/cpp-labs',
+  ALLOWED_ORIGINS: [
+    'https://quantum-dsa.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173'
+  ],
+  API_BASE_PATH: '/api'
+};
 
+// Enhanced CORS Configuration
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
+    // Allow server-to-server and curl requests
     if (!origin) return callback(null, true);
     
-    // Normalize the origin by removing trailing slash and converting to lowercase
-    const normalizedOrigin = origin.endsWith('/') 
-      ? origin.slice(0, -1).toLowerCase() 
-      : origin.toLowerCase();
-    
-    // Check if origin is allowed
-    const isAllowed = allowedOrigins.some(allowedOrigin => 
-      normalizedOrigin === allowedOrigin.toLowerCase()
-    );
-    
-    if (isAllowed) {
-      callback(null, true);
-    } else {
-      console.warn(`CORS blocked for origin: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
+    try {
+      const url = new URL(origin);
+      const baseOrigin = `${url.protocol}//${url.hostname}${url.port ? `:${url.port}` : ''}`;
+      
+      const isAllowed = CONFIG.ALLOWED_ORIGINS.some(allowedOrigin => {
+        // Compare origins after normalizing (remove trailing slashes, lowercase)
+        const normalize = (str) => str.replace(/\/+$/, '').toLowerCase();
+        return normalize(baseOrigin) === normalize(allowedOrigin);
+      });
+
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        console.warn(`CORS blocked request from: ${origin}`);
+        callback(new Error('Not allowed by CORS'));
+      }
+    } catch (err) {
+      console.warn(`Invalid origin format: ${origin}`);
+      callback(new Error('Invalid origin'));
     }
   },
   credentials: false,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   optionsSuccessStatus: 200,
   maxAge: 86400
 };
 
-// Middleware
-app.use(helmet());
-app.use(compression());
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Security Middleware
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", 'data:', 'https:']
+    }
+  },
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/cpp-labs', {
+// Performance Middleware
+app.use(compression());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// CORS Middleware
+app.use(cors(corsOptions));
+
+// Database Connection with Enhanced Settings
+mongoose.connect(CONFIG.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-  socketTimeoutMS: 45000
+  serverSelectionTimeoutMS: 10000,
+  socketTimeoutMS: 45000,
+  retryWrites: true,
+  w: 'majority'
 })
-.then(() => console.log('✅ DSA/History server connected to MongoDB'))
+.then(() => console.log('✅ MongoDB connected successfully'))
 .catch(err => {
-  console.error('❌ MongoDB connection error:', err);
+  console.error('❌ MongoDB connection failed:', err.message);
   process.exit(1);
 });
-
-// Schema Definitions
-const problemSchema = new mongoose.Schema({
-  question: String,
-  code: String,
-  output: String
-}, { _id: false });
 
 // Models
 const DSAAssignment = require('./models/DSAAssignment');
 const History = require('./models/History');
 
-// Response Helpers
+// Enhanced Response Handler
 const respond = {
-  success: (res, data, status = 200) => res.status(status).json({ success: true, data }),
-  error: (res, message, status = 400, details = null) => {
-    const response = { success: false, message };
-    if (details && process.env.NODE_ENV !== 'production') response.details = details;
+  success: (res, data, status = 200, meta = {}) => {
+    const response = {
+      success: true,
+      data,
+      meta: {
+        timestamp: new Date().toISOString(),
+        ...meta
+      }
+    };
+    res.status(status).json(response);
+  },
+  error: (res, message, status = 400, error = null) => {
+    const response = {
+      success: false,
+      message,
+      meta: {
+        timestamp: new Date().toISOString(),
+        statusCode: status
+      }
+    };
+    
+    if (error && process.env.NODE_ENV !== 'production') {
+      response.error = {
+        name: error.name,
+        message: error.message,
+        ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
+      };
+    }
+    
     res.status(status).json(response);
   }
 };
 
-// DSA Routes
-app.route('/dsa-assignments')
+// API Router
+const router = express.Router();
+
+// DSA Assignments Routes
+router.route('/dsa-assignments')
   .get(async (req, res) => {
     try {
       const docs = await DSAAssignment.find().sort({ createdAt: -1 }).lean();
       respond.success(res, docs);
     } catch (err) {
-      respond.error(res, err.message, 500, err);
+      respond.error(res, 'Failed to fetch assignments', 500, err);
     }
   })
   .post(async (req, res) => {
     try {
       const { title, problems = [], icon } = req.body;
-      if (!title || !problems.length) return respond.error(res, 'Title and problems required');
       
-      const validProblems = problems.map(p => {
+      if (!title || !problems.length) {
+        return respond.error(res, 'Title and at least one problem are required', 400);
+      }
+
+      const validProblems = problems.map((p, index) => {
         if (!p.question || !p.code || !p.output) {
-          throw new Error('Each problem must have question, code, and output');
+          throw new Error(`Problem ${index + 1} is missing required fields`);
         }
-        return p;
+        return {
+          question: p.question.trim(),
+          code: p.code.trim(),
+          output: p.output.trim()
+        };
       });
 
       const newDoc = new DSAAssignment({ 
-        title, 
-        icon: icon || 'FaCode', 
-        problems: validProblems 
+        title: title.trim(),
+        icon: icon || 'FaCode',
+        problems: validProblems
       });
       
       const saved = await newDoc.save();
       respond.success(res, saved, 201);
     } catch (err) {
-      respond.error(res, err.message, 500, err);
+      respond.error(res, 'Failed to create assignment', 500, err);
     }
   });
 
-app.route('/dsa-assignments/:id')
+router.route('/dsa-assignments/:id')
   .get(async (req, res) => {
     try {
       const doc = await DSAAssignment.findById(req.params.id).lean();
       if (!doc) return respond.error(res, 'Assignment not found', 404);
       respond.success(res, doc);
     } catch (err) {
-      respond.error(res, err.message, 500, err);
+      respond.error(res, 'Failed to fetch assignment', 500, err);
     }
   })
   .put(async (req, res) => {
     try {
       const updated = await DSAAssignment.findByIdAndUpdate(
-        req.params.id, 
-        req.body, 
+        req.params.id,
+        req.body,
         { new: true, runValidators: true }
       ).lean();
       
       if (!updated) return respond.error(res, 'Assignment not found', 404);
       respond.success(res, updated);
     } catch (err) {
-      respond.error(res, err.message, 500, err);
+      respond.error(res, 'Failed to update assignment', 500, err);
     }
   })
   .delete(async (req, res) => {
@@ -149,85 +203,90 @@ app.route('/dsa-assignments/:id')
       if (!deleted) return respond.error(res, 'Assignment not found', 404);
       respond.success(res, { message: 'Assignment deleted successfully' });
     } catch (err) {
-      respond.error(res, err.message, 500, err);
+      respond.error(res, 'Failed to delete assignment', 500, err);
     }
   });
 
 // History Routes
-app.post('/history', async (req, res) => {
-  try {
-    const { code, output, errors, language } = req.body;
-    
-    if (!code || !language) {
-      return respond.error(res, 'Code and language are required', 400);
+router.route('/history')
+  .post(async (req, res) => {
+    try {
+      const { code, output, errors, language } = req.body;
+      
+      if (!code || !language) {
+        return respond.error(res, 'Code and language are required', 400);
+      }
+
+      const newHistory = new History({
+        code: code.trim(),
+        output: (output || '').trim(),
+        errors: (errors || '').trim(),
+        language: language.trim()
+      });
+
+      const savedHistory = await newHistory.save();
+      respond.success(res, savedHistory, 201);
+    } catch (error) {
+      respond.error(res, 'Failed to save history', 500, error);
     }
+  })
+  .get(async (req, res) => {
+    try {
+      const limit = Math.min(parseInt(req.query.limit) || 10, 100);
+      const history = await History.find()
+        .sort({ timestamp: -1 })
+        .limit(limit)
+        .lean();
+      respond.success(res, history);
+    } catch (error) {
+      respond.error(res, 'Failed to fetch history', 500, error);
+    }
+  });
 
-    const newHistory = new History({
-      code,
-      output: output || '',
-      errors: errors || '',
-      language
-    });
-
-    const savedHistory = await newHistory.save();
-    respond.success(res, savedHistory, 201);
-  } catch (error) {
-    console.error('Error saving history:', error);
-    respond.error(res, 'Error saving history', 500, error);
-  }
-});
-
-app.get('/history', async (req, res) => {
-  try {
-    const limit = parseInt(req.query.limit) || 10;
-    const history = await History.find()
-      .sort({ timestamp: -1 })
-      .limit(limit);
-    respond.success(res, history);
-  } catch (error) {
-    console.error('Error fetching history:', error);
-    respond.error(res, 'Error fetching history', 500, error);
-  }
-});
-
-// Health Check with MongoDB status
-app.get('/health', async (req, res) => {
+// Health Check Endpoint
+router.get('/health', async (req, res) => {
   const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
   
   try {
-    // Verify MongoDB connection is actually working
     await mongoose.connection.db.admin().ping();
-    
-    res.status(200).json({
+    respond.success(res, {
       status: 'OK',
-      uptime: process.uptime(),
-      timestamp: new Date(),
       database: dbStatus,
+      uptime: process.uptime(),
       memoryUsage: process.memoryUsage()
     });
   } catch (err) {
-    res.status(500).json({
-      status: 'DB_ERROR',
-      uptime: process.uptime(),
-      timestamp: new Date(),
-      database: dbStatus,
-      error: err.message
-    });
+    respond.error(res, 'Database ping failed', 500, err);
   }
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error('Unhandled error:', err);
-  respond.error(res, 'Internal Server Error', 500, 
-    process.env.NODE_ENV === 'development' ? err.stack : null
-  );
+// Mount API router
+app.use(CONFIG.API_BASE_PATH, router);
+
+// 404 Handler
+app.use((req, res) => {
+  respond.error(res, 'Endpoint not found', 404);
 });
 
-// Start Server
-const PORT = process.env.DSA_HISTORY_PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 DSA/History server running on port ${PORT}`);
+// Global Error Handler
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  respond.error(res, 'Internal server error', 500, err);
+});
+
+// Server Startup
+app.listen(CONFIG.PORT, () => {
+  console.log(`🚀 Server running on port ${CONFIG.PORT}`);
   console.log('🛡️  CORS enabled for origins:');
-  allowedOrigins.forEach(origin => console.log(`   - ${origin}`));
+  CONFIG.ALLOWED_ORIGINS.forEach(origin => console.log(`   - ${origin}`));
+  console.log(`📂 API base path: ${CONFIG.API_BASE_PATH}`);
+});
+
+// Handle shutdown gracefully
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received. Closing server...');
+  server.close(() => {
+    console.log('Server closed');
+    process.exit(0);
+  });
 });
