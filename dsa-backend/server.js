@@ -16,7 +16,7 @@ app.use(cors({
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-  }));
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -167,3 +167,4 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🌱 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
+
