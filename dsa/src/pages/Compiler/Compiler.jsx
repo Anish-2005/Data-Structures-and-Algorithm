@@ -77,7 +77,7 @@ for(let i=0; i<5; i++) {
 
   const saveHistory = async (newEntry) => {
     try {
-      const response = await fetch('https://object-oriented-programming-cpp-lab.onrender.com/api/history', {
+      const response = await fetch('https://data-structures-and-algorithm.onrender.com/api/history', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
