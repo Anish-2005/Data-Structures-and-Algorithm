@@ -1,216 +1,411 @@
-# 🧠 Data Structures & Algorithms Interactive Labs
+# 🧠 Data Structures & Algorithms - Interactive Learning Platform
 
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/64855541/135758397-513b4edf-a93f-477e-a78e-a80d7265bcd8.png" alt="DSA Banner" width="800"/>
+  <img src="dsa/public/dsa.png" alt="DSA Platform" width="800"/>
+  
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+  [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+  [![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com/)
+  [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 </div>
 
 ---
 
-## 🌟 Key Features
+## 🌟 About This Project
 
-### 🚀 Interactive Learning Experience
+A comprehensive **Data Structures & Algorithms** learning platform featuring interactive components, animations, and a complete study guide with implementations in C. This project combines modern web technologies with educational content to create an engaging learning experience.
 
-- **Live Code Editor** with syntax highlighting and auto-completion  
-- **Visualization Tools** for algorithms (sorting, graph traversals, etc.)  
-- **Step-by-Step Debugger** to understand algorithm execution  
-- **Real-time Output** visualization  
-- **Quantum-inspired UI** with animated components  
-- **Admin Panel** for challenge management  
+### 🎯 Key Features
+
+- **🎨 Interactive UI** with quantum-inspired animations and holographic effects
+- **📚 Comprehensive Study Materials** with detailed explanations and C implementations
+- **🔬 Interactive Labs** for hands-on learning
+- **🎯 Algorithm Visualizer** for understanding complex algorithms
+- **💻 Online Compiler** for testing code snippets
+- **🤖 AI-Powered Chatbot** for instant help and explanations
+- **📖 Structured Learning Path** from basics to advanced topics
 
 ---
 
-### 📚 Comprehensive DSA Coverage
+## 🏗️ Project Architecture
 
-| Category              | Topics Included                                                                 |
-|-----------------------|---------------------------------------------------------------------------------|
-| **Fundamentals**      | Big-O Analysis, Recursion, Problem-Solving Patterns                            |
-| **Data Structures**   | Arrays, Linked Lists, Stacks, Queues, Hash Tables, Trees, Graphs, Heaps        |
-| **Algorithms**        | Sorting, Searching, Dynamic Programming, Greedy Algorithms, Backtracking       |
-| **Advanced Topics**   | Trie, Segment Trees, Disjoint Set Union, Suffix Arrays                         |
+### Frontend (React + Vite)
+- **Modern Stack**: React 19, Vite 6, Framer Motion 12
+- **Responsive Design**: Mobile-first approach with smooth animations
+- **Interactive Components**: Quantum particles, holographic grids, tech stack orbit
+- **Multi-page Application**: Landing, Labs, Visualizer, Compiler, Learn, Chatbot
+
+### Backend (Node.js + Express)
+- **RESTful API**: Express.js with MongoDB integration
+- **Security**: Helmet, CORS, compression middleware
+- **Data Management**: Mongoose ODM for database operations
+- **Assignment Tracking**: History and progress management
+
+### Study Materials
+- **Comprehensive Coverage**: 50+ topics with detailed explanations
+- **C Implementations**: Production-ready code examples
+- **Academic Integration**: PCC-CSBS391 course assignments included
+
+---
+
+## 📚 Learning Content Coverage
+
+| **Data Structures** | **Algorithms** | **Advanced Topics** |
+|-------------------|---------------|-------------------|
+| • Linked Lists (SLL, DLL, CLL, DCLL) | • Sorting (Bubble, Selection, Insertion, Merge, Quick, Heap) | • Graph Algorithms (BFS, DFS) |
+| • Stacks & Queues | • Searching (Linear, Binary) | • Tree Structures (BST, AVL, B-Trees) |
+| • Trees & Graphs | • Dynamic Programming | • Advanced Data Structures |
+| • Hash Tables | • Greedy Algorithms | • Algorithm Analysis |
 
 ---
 
 ## 💻 Tech Stack
 
-### Frontend  
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)  
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge)  
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+### Frontend
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![React Icons](https://img.shields.io/badge/React_Icons-61DAFB?style=for-the-badge&logo=react&logoColor=white)
 
-### Visualization  
-![D3.js](https://img.shields.io/badge/D3.js-F9A03C?style=for-the-badge&logo=d3.js&logoColor=white)  
-![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)
-
-### Backend  
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)  
-![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)  
+### Backend
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=for-the-badge&logo=mongoose&logoColor=white)
+
+### AI Integration
+![Google AI](https://img.shields.io/badge/Google_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![Generative AI](https://img.shields.io/badge/Generative_AI-FF6B6B?style=for-the-badge&logo=openai&logoColor=white)
 
 ---
 
 ## 🏗️ Project Structure
 
-<details>
-<summary>Click to expand</summary>
-
-```plaintext
-dsa-labs/
-├── client/               # Frontend React application
-│   ├── public/           # Static assets (images, icons, favicon, etc.)
-│   └── src/              # Core source code
-│       ├── components/   # Reusable UI components
-│       ├── sections/     # Section-based layout pages
-│       ├── utils/        # Helper and utility functions
-│       └── App.js        # Main entry React component
-├── server/               # Backend Express API
-│   ├── models/           # MongoDB models (Schemas)
-│   ├── routes/           # API endpoints for challenges, users, etc.
-│   └── app.js            # Main Express server file
-└── README.md             # Project documentation
-## 🛠️ Installation & Setup
 ```
-</details>
+Data-Structures-and-Algorithms/
+├── 📁 dsa/                          # Frontend React Application
+│   ├── 📁 public/                   # Static assets
+│   │   ├── dsa.png                  # Project logo
+│   │   └── vite.svg                 # Vite logo
+│   ├── 📁 src/
+│   │   ├── 📁 components/           # Reusable UI components
+│   │   │   ├── Footer.jsx           # Footer component
+│   │   │   ├── HolographicGrid.jsx  # Holographic background effect
+│   │   │   ├── QuantumParticles.jsx # Quantum particle animations
+│   │   │   └── TechStackOrbit.jsx   # Floating tech stack icons
+│   │   ├── 📁 pages/                # Main application pages
+│   │   │   ├── 📁 Landing/          # Landing page
+│   │   │   ├── 📁 Labs/             # Interactive labs
+│   │   │   ├── 📁 Visualizer/       # Algorithm visualizer
+│   │   │   ├── 📁 Compiler/         # Online code compiler
+│   │   │   ├── 📁 Learn/            # Learning materials
+│   │   │   └── 📁 Chatbot/          # AI-powered chatbot
+│   │   ├── App.jsx                  # Main app component
+│   │   └── main.jsx                 # Entry point
+│   ├── package.json                 # Frontend dependencies
+│   └── vite.config.js               # Vite configuration
+├── � dsa-backend/                  # Backend API Server
+│   ├── 📁 config/                   # Configuration files
+│   │   ├── constants.js             # Application constants
+│   │   ├── database.js              # Database configuration
+│   │   └── middleware.js            # Custom middleware
+│   ├── 📁 controllers/              # Route controllers
+│   │   ├── dsaAssignmentController.js
+│   │   └── historyController.js
+│   ├── 📁 models/                   # MongoDB models
+│   │   ├── DSAAssignment.js
+│   │   └── History.js
+│   ├── 📁 routes/                   # API routes
+│   │   ├── dsaAssignmentRoutes.js
+│   │   ├── historyRoutes.js
+│   │   └── index.js
+│   ├── 📁 services/                 # Business logic
+│   │   └── responseHandler.js
+│   ├── server.js                    # Express server
+│   └── package.json                 # Backend dependencies
+├── 📁 Study Materials/              # Comprehensive Learning Resources
+│   ├── 📁 Linked List/              # All linked list variants
+│   │   ├── 📁 Singly Linked List/   # SLL implementation & theory
+│   │   ├── 📁 Doubly Linked List/   # DLL implementation & theory
+│   │   ├── 📁 Cyclic Linked List/   # CLL implementation & theory
+│   │   └── � Doubly Cyclic Linked List/ # DCLL implementation & theory
+│   ├── � Stack/                    # Stack implementations
+│   │   ├── StackArr.c               # Array-based stack
+│   │   ├── StackArr.md              # Array stack documentation
+│   │   ├── StackLL.c                # Linked list-based stack
+│   │   └── StackLL.md               # Linked list stack documentation
+│   ├── 📁 Sorting/                  # Sorting algorithms
+│   │   ├── 📁 Bubble Sort/          # Bubble sort with documentation
+│   │   ├── 📁 Selection Sort/       # Selection sort implementation
+│   │   ├── � Insertion Sort/       # Insertion sort implementation
+│   │   ├── � Merge Sort/           # Merge sort implementation
+│   │   ├── 📁 Quick Sort/           # Quick sort implementation
+│   │   └── 📁 Heap Sort/            # Heap sort implementation
+│   ├── 📁 Searching/                # Search algorithms
+│   │   ├── 📁 Linear Search/        # Linear search implementation
+│   │   └── 📁 Binary Search/        # Binary search implementation
+│   ├── 📁 Trees/                    # Tree data structures
+│   │   ├── 📁 Binary Search Tree/   # BST implementation
+│   │   ├── 📁 AVL Tree/             # Self-balancing BST
+│   │   ├── 📁 B Tree/               # B-tree implementation
+│   │   ├── 📁 B+ Tree/              # B+ tree implementation
+│   │   └── 📁 Red-Black Tree/       # Red-black tree implementation
+│   ├── 📁 Graphs/                   # Graph algorithms
+│   │   ├── 📁 BFS/                  # Breadth-first search
+│   │   └── 📁 DFS/                  # Depth-first search
+│   └── 📁 PCC-CSBS391/              # Academic course assignments
+│       ├── 📁 Assignment 1/         # Course assignment 1
+│       ├── 📁 Assignment 2/         # Course assignment 2
+│       └── ... (up to Assignment 12) # Complete course coverage
+└── README.md                        # This file
+```
+
+---
+
+## 🚀 Quick Start
 
 ### 📋 Prerequisites
 
-- **Node.js** (v16+)
-- **MongoDB Atlas** account or local MongoDB instance
+- **Node.js** (v16 or higher)
+- **npm** or **yarn**
+- **MongoDB** (local or Atlas)
 - **Git**
 
+### 🔧 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Anish-2005/Data-Structures-and-Algorithms.git
+   cd Data-Structures-and-Algorithms
+   ```
+
+2. **Install Frontend Dependencies**
+   ```bash
+   cd dsa
+   npm install
+   ```
+
+3. **Install Backend Dependencies**
+   ```bash
+   cd ../dsa-backend
+   npm install
+   ```
+
+4. **Set up Environment Variables**
+   
+   Create `.env` in the `dsa-backend` directory:
+   ```env
+   PORT=5000
+   MONGODB_URI=mongodb://localhost:27017/dsa-platform
+   NODE_ENV=development
+   ```
+
+5. **Start the Development Servers**
+   
+   **Backend** (Terminal 1):
+   ```bash
+   cd dsa-backend
+   npm start
+   ```
+   
+   **Frontend** (Terminal 2):
+   ```bash
+   cd dsa
+   npm run dev
+   ```
+
+6. **Open your browser** and navigate to `http://localhost:5173`
+
 ---
 
-### 🔧 1. Clone the Repository
+## 🎮 Platform Features
 
+### 🌐 Interactive Web Application
+- **Landing Page**: Modern design with quantum-inspired animations
+- **Labs Section**: Interactive coding challenges and exercises
+- **Visualizer**: Real-time algorithm visualization
+- **Compiler**: Online code editor and compiler
+- **Learn Section**: Structured learning path
+- **AI Chatbot**: Instant help and explanations
+
+### 📚 Study Materials
+- **50+ Data Structure & Algorithm Topics**
+- **C Language Implementations** with detailed comments
+- **Markdown Documentation** for each topic
+- **Academic Course Integration** (PCC-CSBS391)
+- **Progressive Difficulty** from basics to advanced
+
+### 🎨 UI/UX Features
+- **Quantum Particles**: Dynamic particle system
+- **Holographic Grid**: Animated background effects
+- **Tech Stack Orbit**: Floating technology icons
+- **Responsive Design**: Mobile-first approach
+- **Smooth Animations**: Framer Motion powered transitions
+
+---
+## � Development & Testing
+
+### Available Scripts
+
+**Frontend (dsa directory):**
 ```bash
-git clone https://github.com/your-username/dsa-interactive-labs.git
-cd dsa-interactive-labs
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Run ESLint
 ```
-### 🔐 2. Set Up Environment Variables
 
-Create the following `.env` files:
-
-#### `client/.env`
-
-```env
-REACT_APP_API_URL=http://localhost:5000
-VITE_ADMIN_PIN=****  # For admin panel access
-```
-### 🔐 `server/.env`
-
-```env
-PORT=5000
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/dsa-labs?retryWrites=true&w=majority
-JWT_SECRET=your_jwt_secret_here
-```
-### 📦 3. Install Dependencies & Run
-
+**Backend (dsa-backend directory):**
 ```bash
-# Install dependencies for both client and server
-npm run setup
-
-# Start development servers (runs both concurrently)
-npm run dev
+npm start        # Start the server
+npm test         # Run tests (when implemented)
 ```
-# 🎮 Using the Interactive Labs
 
-## Lab Features
-- ✨ **Holographic UI** with animated components  
-- 🧩 **Code Challenges** with multiple difficulty levels  
-- 🐞 **Visual Debugger** with step-through execution  
-- 📊 **Performance Metrics** comparison  
-- 🔐 **Admin Panel** (access with PIN) to manage challenges  
+### Development Tools
+- **Vite**: Fast build tool and development server
+- **ESLint**: Code linting and style checking
+- **Framer Motion**: Animation library
+- **React Router**: Client-side routing
+- **Express**: Backend web framework
+- **Mongoose**: MongoDB object modeling
 
 ---
 
-## 🧪 Challenge Workflow
-1. **Select a topic** (e.g., _"Binary Search Trees"_)
-2. **Read** problem statement and examples
-3. **Write solution** in embedded editor (supports 10+ languages)
-4. **Use visualizer** to debug your approach
-5. **Submit** to see performance metrics
+## 📖 Learning Path
 
-## 📊 Progress Tracking
+### 🎯 Beginner Level
+1. **Arrays & Basic Operations**
+2. **Singly Linked Lists**
+3. **Stacks & Queues**
+4. **Basic Sorting** (Bubble, Selection, Insertion)
+5. **Linear & Binary Search**
 
-### 🔐 User Authentication System
-- Secure JWT-based authentication
-- Role-based access control (Student/Admin)
-- OAuth integration (Google, GitHub)
-- Password recovery flow
+### 🎯 Intermediate Level
+1. **Doubly & Circular Linked Lists**
+2. **Advanced Sorting** (Merge, Quick, Heap)
+3. **Binary Trees & BST**
+4. **Graph Basics** (BFS, DFS)
+5. **Hash Tables**
 
-### ✅ Challenge Completion Tracking
-| Feature                | Description                                                                 |
-|------------------------|-----------------------------------------------------------------------------|
-| **Completion Badges**  | Earn badges for completing challenge categories                             |
-| **Streak Counter**     | Track consecutive days of activity                                         |
-| **Milestones**         | Celebrate reaching important benchmarks                                    |
-| **History**            | View all attempted challenges with timestamps                              |
+### 🎯 Advanced Level
+1. **Self-Balancing Trees** (AVL, Red-Black)
+2. **B-Trees & B+ Trees**
+3. **Advanced Graph Algorithms**
+4. **Dynamic Programming**
+5. **System Design Concepts**
 
-### 📈 Performance Analytics Dashboard
-```mermaid
-pie
-    title Performance Metrics
-    "Time Complexity" : 35
-    "Space Complexity" : 25
-    "Correctness" : 25
-    "Code Quality" : 15
-```
-## 🧪 Testing
+---
 
-### Backend Tests
+## 🚀 Deployment
+
+### Frontend (Vercel)
+The frontend is configured for Vercel deployment with `vercel.json`:
 ```bash
-cd server && npm test
+npm run build
+# Deploy to Vercel
 ```
-### Frontend Tests
+
+### Backend (Node.js Hosting)
+Deploy to any Node.js hosting platform:
 ```bash
-cd client && npm test
+# Set environment variables
+# Deploy the dsa-backend directory
 ```
-### End-to-End Tests
-```bash
-npm run test:e2e
-```
+
+---
+
+## 📊 Project Statistics
+
+- **50+ Algorithm Implementations** in C
+- **6 Main Application Pages** with React
+- **20+ Interactive Components**
+- **Academic Course Integration** (12 assignments)
+- **Modern Tech Stack** (React 19, Node.js, MongoDB)
+- **Mobile-Responsive Design**
+
+---
+
 ## 🤝 Contributing
 
 ### How to Contribute
 
 1. **Fork the repository**
-   
-2. **Create your feature branch**
+2. **Create a feature branch**
    ```bash
-   git checkout -b feature/AmazingFeature
+   git checkout -b feature/amazing-feature
    ```
 3. **Commit your changes**
-
-```bash
-git commit -m 'Add some AmazingFeature'
-```
+   ```bash
+   git commit -m 'Add amazing feature'
+   ```
 4. **Push to the branch**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+5. **Open a Pull Request**
 
-```bash
-git push origin feature/AmazingFeature
-```
+### Contribution Guidelines
 
-## Contribution Guidelines
+- Follow the existing code style
+- Add comments to complex algorithms
+- Include documentation for new features
+- Test your changes thoroughly
+- Update README if needed
 
-- Follow existing code style
-- Write clear commit messages
-- Include tests for new features
-- Update documentation when needed
+### Areas for Contribution
 
----
-
-## 📜 License
-
-This project is licensed under the MIT License – see the LICENSE file for details.
-
----
-
-## ✉️ Contact
-
-**Anish Seth – anishseth0510@gmail.com**
-
-**Project Link – https://github.com/Anish-2005/Data-Structures-and-Algorithm**
+- **New Algorithm Implementations**
+- **Enhanced Visualizations**
+- **Mobile UX Improvements**
+- **Performance Optimizations**
+- **Test Coverage**
+- **Documentation Updates**
 
 ---
 
-<div align="center">Made with ❤️ and ☕ by <strong>Anish</strong></div>
+## 🌟 Future Enhancements
+
+- [ ] **Advanced Visualizations** with D3.js/Three.js
+- [ ] **User Authentication** and progress tracking
+- [ ] **Code Execution Engine** for multiple languages
+- [ ] **Community Features** (sharing, discussions)
+- [ ] **Mobile Application** (React Native)
+- [ ] **AI-Powered Code Analysis**
+- [ ] **Performance Benchmarking**
+- [ ] **Video Tutorials Integration**
+
+---
+
+## � License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- **Educational Institutions** for course structure inspiration
+- **Open Source Community** for amazing libraries and tools
+- **Algorithm Visualization** community for inspiration
+- **React & Node.js** communities for excellent documentation
+
+---
+
+## 📞 Contact & Support
+
+**Developer**: Anish Seth  
+**Email**: anishseth0510@gmail.com  
+**GitHub**: [@Anish-2005](https://github.com/Anish-2005)  
+**Project**: [Data-Structures-and-Algorithms](https://github.com/Anish-2005/Data-Structures-and-Algorithms)
+
+---
+
+<div align="center">
+  
+  **⭐ Star this repository if you find it helpful!**
+  
+  Made with ❤️ by [Anish Seth](https://github.com/Anish-2005)
+  
+</div>
 

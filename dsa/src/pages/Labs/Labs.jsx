@@ -228,7 +228,7 @@ export default function DSALabsPage() {
     setEditMode(true);
     setFormData({
       title: assignment.title,
-      icon: assignment.icon || 'FaRegChartBar', // Changed from iconName to icon
+       icon: Object.keys(iconComponents).find(key => iconComponents[key] === assignment.icon) || 'FiTerminal',
       problems: assignment.problems.map(p => ({
         question: p.question,
         code: p.code,
