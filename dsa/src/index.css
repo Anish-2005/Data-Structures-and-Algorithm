@@ -1,3 +1,50 @@
+:root {
+  --scrollbar-track: rgba(15, 23, 42, 0.9);
+  --scrollbar-thumb: linear-gradient(180deg, #db2777 0%, #7e22ce 100%);
+  --scrollbar-thumb-hover: linear-gradient(180deg, #ec4899 0%, #9333ea 100%);
+  --scrollbar-border: rgba(244, 114, 182, 0.2);
+}
+
 html {
-    scroll-behavior: smooth;
-  }
+  scroll-behavior: smooth;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #a855f7 var(--scrollbar-track);
+}
+
+/* Chromium / Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+  border: 2px solid var(--scrollbar-border);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
+/* Optional utility class for tighter in-panel scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+}
